@@ -5,24 +5,19 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
-        ArrayList<Integer> scoresList = new ArrayList<Integer>();
-        printMenu(0);
+        ArrayList<Integer> scoresList = new ArrayList<>();
         while (running) {
-            String userInput = scanner.nextLine();
             int scoreCount = scoresList.isEmpty() ? 0 : scoresList.size();
+            printMenu(scoreCount);
+            String userInput = scanner.nextLine();
             if (checkInput(userInput)) {
-
                 switch (userInput) {
                     case "1": {
-                        addScore(scoresList, scoreCount);
-                        printMenu(scoreCount);
-
+                        addScore(scoresList);
                         break;
                     }
                     case "2": {
                         printList(scoresList);
-                        printMenu(scoreCount);
-
                         break;
                     }
                     case "3": {
@@ -31,34 +26,34 @@ public class Main {
                     }
                     case "4": {
                         printAverageScore(scoresList);
-                        printMenu(scoreCount);
-
                         break;
                     }
                     case "5": {
                         clearScoreList(scoresList);
-                        printMenu(scoreCount);
-
                         break;
                     }
                     case "6": {
-                        System.out.println("Exiting...");
+                        System.out.println("Closing...");
                         running = false;
 
                     }
                 }
             } else {
-
-                System.out.println("Incorrect input");
-                printMenu(scoreCount);
-                scanner.nextLine();
+                System.out.println("Incorrect input, try again...");
             }
 
         }
     }
 
     private static void printList(ArrayList<Integer> scoresList) {
-        System.out.println(scoresList.toString());
+        if (!scoresList.isEmpty()) {
+            System.out.println("All scores:");
+            for (int score : scoresList) {
+                System.out.println(score);
+            }
+        } else {
+            System.out.println("Score list is empty...");
+        }
     }
 
     private static void clearScoreList(ArrayList<Integer> scoresList) {
@@ -73,9 +68,9 @@ public class Main {
                 totalScore = totalScore + score;
             }
             double averageScore = (double) totalScore / scoresList.size();
-            System.out.println("The average score of " + scoresList.size() + " scores is: " + averageScore);
+            System.out.println("The average score out of a total of " + scoresList.size() + " scores is: " + averageScore);
         } else {
-            System.out.println("No scores in list...");
+            System.out.println("Score list is empty...");
         }
     }
 
@@ -93,20 +88,19 @@ public class Main {
         }
     }
 
-    private static void addScore(ArrayList<Integer> scoresList, int scoreCount) {
+    private static void addScore(ArrayList<Integer> scoresList) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter a new score: ");
         int newScore = scanner.nextInt();
         scoresList.add(newScore);
-        scoreCount++;
         System.out.println(newScore + " added to list.");
         scanner.nextLine();
     }
 
     private static void printMenu(int scoreCount) {
-        System.out.println("Total number of scores in list: " + scoreCount);
+        System.out.println("\n*** Total number of scores in list: " + scoreCount + " ***\n");
         System.out.println("1. Add score");
-        System.out.println("2. Show list");
+        System.out.println("2. Show all scores");
         System.out.println("3. Show highest score");
         System.out.println("4. Show average score");
         System.out.println("5. Clear list");
