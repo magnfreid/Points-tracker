@@ -6,11 +6,18 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
         ArrayList<Integer> scoresList = new ArrayList<>();
+        String[] menuItems = {
+                "1. Add score",
+                "2. Show all scores",
+                "3. Show highest score",
+                "4. Show average score",
+                "5. Clear list",
+                "6. Exit"};
         while (running) {
             int scoreCount = scoresList.isEmpty() ? 0 : scoresList.size();
-            printMenu(scoreCount);
+            printMenu(scoreCount, menuItems);
             String userInput = scanner.nextLine();
-            if (checkInput(userInput)) {
+            if (checkInput(userInput, menuItems)) {
                 switch (userInput) {
                     case "1": {
                         addScore(scoresList);
@@ -97,23 +104,23 @@ public class Main {
         scanner.nextLine();
     }
 
-    private static void printMenu(int scoreCount) {
+    private static void printMenu(int scoreCount, String[] menuItems) {
         System.out.println("\n*** Total number of scores in list: " + scoreCount + " ***\n");
-        System.out.println("1. Add score");
-        System.out.println("2. Show all scores");
-        System.out.println("3. Show highest score");
-        System.out.println("4. Show average score");
-        System.out.println("5. Clear list");
-        System.out.println("6. Exit");
+        for (String item : menuItems) {
+            System.out.println(item);
+        }
         System.out.println("Enter:");
     }
 
-    private static boolean checkInput(String input) {
-        return input.equals("1") ||
-                input.equals("2") ||
-                input.equals("3") ||
-                input.equals("4") ||
-                input.equals("5") ||
-                input.equals("6");
+    //Loopar igenom meny-arrayen och kollar om user input är ett val som finns
+    private static boolean checkInput(String input, String[] menuItems) {
+        boolean checkBoolean = false;
+        for (int i = 1; i < menuItems.length + 1; i++) {
+            if (input.equals(String.valueOf(i))) {
+                checkBoolean = true;
+                break;
+            }
+        }
+        return checkBoolean;
     }
 }
