@@ -6,6 +6,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
         ArrayList<Integer> scoresList = new ArrayList<>();
+        //Array med alla menyer, för att lättare kunna lägga till och ta bort
         String[] menuItems = {
                 "1. Add score",
                 "2. Show all scores",
@@ -14,7 +15,7 @@ public class Main {
                 "5. Clear list",
                 "6. Exit"};
         while (running) {
-            int scoreCount = scoresList.isEmpty() ? 0 : scoresList.size();
+            int scoreCount = scoresList.size();
             printMenu(scoreCount, menuItems);
             String userInput = scanner.nextLine();
             if (checkInput(userInput, menuItems)) {
